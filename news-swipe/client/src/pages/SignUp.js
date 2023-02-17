@@ -1,32 +1,55 @@
 import { useState } from 'react'
 import Nav from '../components/Nav'
 import '../Signup.css'
-
-
+import { useCookies } from 'react-cookie'
+import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
 
 const SignUp = () => {
+    const [cookies, setCookie, removeCookie] = useCookies(['user'])
     const [formData, setFormData] = useState({
-      user_id: "",
+      user_id: cookies.UserId,
       first_name: "",
       interest: [],
-      email: "",
-      url: "", 
     })
- 
-    const handleSubmit = ()=> {
 
+    let navigate = useNavigate()
+ 
+    const handleSubmit = async (e)=> {
+        e.preventDefault()
+        console.log(formData)
+        try {
+          const response = await axios.put('http://localhost:8000/user', { formData })
+          const success = response.status === 200
+          if(success) navigate('/dashboard')
+        } catch(err) {
+          console.log(err)
+        }
     };
 
-    const handleChange = (e)=> {
+    const handleChange = (e) => {
       const value = e.target.value
       const name = e.target.name
-      console.log(e.target.checked)
-
-      setFormData((prevState) => ({
-        ...prevState,
-        [name] : value
-      }))
-    };
+    
+      if(e.target.type === "checkbox") {
+        if(formData.interest.includes(value)) {
+          setFormData(prevState => ({
+            ...prevState,
+            interest: prevState.interest.filter(i => i !== value)
+          }))
+        } else {
+          setFormData(prevState => ({
+            ...prevState,
+            interest: [...prevState.interest, value]
+          }))
+        }
+      } else {
+        setFormData(prevState => ({
+          ...prevState,
+          [name]: value
+        }))
+      }
+    }
 
     console.log(formData)
 
@@ -58,7 +81,7 @@ const SignUp = () => {
                   <input
                     id='music'
                     type='checkbox'
-                    name='interest'
+                    name='interest_music'
                     value='music'
                     onChange={handleChange}
                   />
@@ -67,100 +90,90 @@ const SignUp = () => {
                   <input
                     id='sports'
                     type='checkbox'
-                    name='interest'
+                    name='interest_sports'
                     value='sports'
                     onChange={handleChange}
-                    checked={false}
                   />
                   <label htmlFor='sports'>Sports</label>
                   
                   <input
                     id='entertainment'
                     type='checkbox'
-                    name='interest'
+                    name='interest_entertainment'
                     value='entertainment'
                     onChange={handleChange}
-                    checked={false}
                   />
                   <label htmlFor='entertainment'>Entertainment</label>
                   
                   <input
                     id='gaming'
                     type='checkbox'
-                    name='interest'
+                    name='interest_gaming'
                     value='gaming'
                     onChange={handleChange}
-                    checked={false}
                   />
                   <label htmlFor='gaming'>Gaming</label>
                   
                   <input
                     id='football'
                     type='checkbox'
-                    name='interest'
+                    name='interest_football'
                     value='football'
                     onChange={handleChange}
-                    checked={false}
                   />
                   <label htmlFor='football'>Football</label>      
 
                   <input
                     id='breaking_news'
                     type='checkbox'
-                    name='interest'
+                    name='interest_breaking-news'
                     value='breaking-news'
                     onChange={handleChange}
-                    checked={false}
                   />
                   <label htmlFor='breaking_news'>Breaking News</label>
 
                   <input
                     id='technology'
                     type='checkbox'
-                    name='interest'
+                    name='interest_technology'
                     value='technology'
                     onChange={handleChange}
-                    checked={false}
                   />
                   <label htmlFor='technology'>Technology</label>
 
                   <input
                     id='business'
                     type='checkbox'
-                    name='interest'
+                    name='interest_business'
                     value='business'
                     onChange={handleChange}
-                    checked={false}
                   />
                   <label htmlFor='business'>Business</label>
 
                   <input
                     id='science'
                     type='checkbox'
-                    name='interest'
+                    name='interest_science'
                     value='science'
                     onChange={handleChange}
-                    checked={false}
                   />
                   <label htmlFor='science'>Science</label>
 
                   <input
                     id='health'
                     type='checkbox'
-                    name='interest'
+                    name='interest_health'
                     value='health'
                     onChange={handleChange}
-                    checked={false}
                   />
                   <label htmlFor='health'>Health</label>
 
                   <input
                     id='world'
                     type='checkbox'
-                    name='interest'
+                    name='interest_world'
                     value='world'
                     onChange={handleChange}
-                    checked={false}
                   />
                   <label htmlFor='world'>World</label>
                 </div>

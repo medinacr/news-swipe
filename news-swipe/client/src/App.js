@@ -10,7 +10,6 @@ import "./App.css";
 
 function App() {
   return (
-    <div className="App">
       <BrowserRouter>
         <Routes>
           <Route path="/home" element={<Home /> } /> 
@@ -19,7 +18,6 @@ function App() {
           <Route path="/interests" element={<Interest /> } /> 
         </Routes>
       </BrowserRouter>
-    </div>
   );
 }
 
