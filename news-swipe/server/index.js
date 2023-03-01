@@ -12,10 +12,6 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 
-app.get('/', (req, res) => {
-  res.json('hello to my app')
-})
-
 app.post('/signup', async (req, res) => {
   const client = new MongoClient(uri)
   const {email, password} = req.body
@@ -79,6 +75,23 @@ app.post('/login', async (req, res) => {
   }
 })
 
+app.get('/user', async (req, res) => {
+  const client = new MongoClient(uri)
+  const userId = req.query.userId
+
+  try {
+    await client.connect()
+    const database = client.db('app-data')
+    const users = database.collection('users')
+
+    const query = { user_id: userId }
+    const user = await users.findOne(query)
+    res.send(user)
+  } finally {
+    await client.close()
+  }
+})
+
 app.get('/users', async (req, res) => {
   const client = new MongoClient(uri)
 
@@ -121,6 +134,41 @@ app.put('/user', async (req, res) => {
 
 
 })
+
+app.put('/add-article', async (req, res) => {
+  const client = new MongoClient(uri)
+  const { userId, article } = req.body
+
+  try {
+    await client.connect()
+    const database = client.db('app-data')
+    const users = database.collection('users')
+
+    const query = { user_id: userId }
+    const user = await users.findOne(query)
+    if (user) {
+      const bookmark = user.bookmark || []
+      const articleUrl = article.articleUrl
+      if (!bookmark.some(item => item.articleUrl === articleUrl)) {
+        bookmark.push(article)
+        const updateDocument = {
+          $set: {
+            bookmark: bookmark
+          }
+        }
+        await users.updateOne(query, updateDocument)
+        res.send({ success: true })
+      } else {
+        res.send({ success: false, message: 'Article already bookmarked' })
+      }
+    } else {
+      res.send({ success: false, message: 'User not found' })
+    }
+  } finally {
+    await client.close()
+  }
+})
+
 
 
 
