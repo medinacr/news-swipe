@@ -11,6 +11,8 @@ const SignUp = () => {
       user_id: cookies.UserId,
       first_name: "",
       interest: [],
+      bookmarks: {},
+      matches: []
     })
 
     let navigate = useNavigate()

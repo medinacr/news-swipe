@@ -3,17 +3,17 @@ import ChatDisplay from "./ChatDisplay"
 import BookmarkDisplay from "./BookmarkDisplay"
 import "../ChatContainer.css"
 
-const BookmarkContainer = () => {
+const BookmarkContainer = ({ user }) => {
   return (
     <div className="bookmark-container">
-      <BookmarkHeader />
+      <BookmarkHeader user={user}/>
 
       <div>
         <button className="option">Bookmarks</button>
         <button className="option">Chat</button>
       </div>
 
-      <BookmarkDisplay/>
+      <BookmarkDisplay user={user}/>
 
       <ChatDisplay/>
     </div>

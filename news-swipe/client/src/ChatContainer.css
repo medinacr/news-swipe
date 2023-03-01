@@ -3,6 +3,7 @@
   box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
   rgba(0, 0, 0, 0) 0px 0px 0px 1px;
   width: 30%;
+  height: 100%;
   text-align: left;
   z-index: 1;
 }
@@ -35,10 +36,21 @@
   display: flex;
   align-items: center;
   padding: 20px;
-  color: rgb(255,255,255);
+  color: rgb(0, 0, 0);
+  cursor:pointer;
 }
 
-.img-container {
+.bookmark-container .profile,
+.bookmark-container .log-out-icon:hover 
+{
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+}
+
+/* .img-container {
   height: 14vh;
   width: 30px;
   border-radius: 15px;
@@ -48,16 +60,60 @@
 
 .img-container img {
   width: 100%;
-}
+} */
 
 /*----- Chat Display -----*/
 
-.chat-display {
-  height: 76vh;
-  overflow-y: auto;
-}
 
 .chat-input {
   display: flex;
   flex-direction: column;
+  margin: 7px;
+}
+
+.chat-input textarea {
+  resize: none;
+  box-sizing: border-box; /* Ensure that padding and border are included in the input box dimensions */
+  width: 100%; /* Make the input box fill its container */
+  height: auto; /* Allow the height to expand with the text */
+  min-height: 40px; /* Set a minimum height to prevent the input box from becoming too small */
+  padding: 10px; /* Add some padding to the input box to make it more user-friendly */
+  border: 1px solid #ccc; /* Add a border to the input box */
+  border-radius: 5px; /* Add some border radius to make the input box more visually appealing */
+  font-size: 16px; /* Set the font size */
+  line-height: 1.5; /* Set the line height to make the text more readable */
+}
+
+/*------ Bookmark Display -------*/
+
+.bookmark-bar {
+  display: flex;
+  flex-direction: column;
+  height: 1000px;
+  overflow: auto;
+}
+
+a:visited {
+  text-decoration: none;
+  color: black;
+}
+
+a {
+  text-decoration: none;  
+  color: black;
+}
+
+.bookmark-card {
+  border: 2px solid #dedede;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+.bookmark-image {
+  height: 50px; 
+  width: 50px;
+  border-radius: 30px;
+  object-fit: cover;
 }

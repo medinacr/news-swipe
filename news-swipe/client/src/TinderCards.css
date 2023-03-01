@@ -18,5 +18,10 @@
 }
 
  .swipe {
-  position: absolute;
+  position: fixed;
+  user-select: none;
+ }
+
+ .card- {
+  object-fit: contain;
  }
