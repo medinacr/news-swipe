@@ -10,9 +10,14 @@ const Dashboard = () => {
   const [cookies, setCookie, removeCookie] = useCookies(['user'])
   const [articles, setArticles] = useState([]);
   const [lastDirection, setLastDirection] = useState()
+  const [bookmarkDeleted, setBookmarkDeleted] = useState(false)
 
 
   const userId = cookies.UserId
+
+  const handlebookmarkDeleted = () => {
+    setBookmarkDeleted(!bookmarkDeleted)
+  }
 
   const getUser = async () => {
     try{
@@ -81,7 +86,7 @@ const Dashboard = () => {
     <>
     { user &&
     <div className="dashboard">
-      <BookmarkContainer user={user}/>
+      <BookmarkContainer user={user} getUser={getUser} />
       <div className="swipe-container">
         <div className="card-container">
 

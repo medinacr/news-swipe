@@ -1,7 +1,20 @@
+import axios from "axios"
+import { useEffect, useState } from 'react'
 import "../ChatContainer.css"
 
-const BookmarkDisplay = ( {user} ) => {
-  console.log(user)
+const BookmarkDisplay = ( {user, getUser} ) => {
+  const userId = user.user_id
+  
+  const deleteBookmark = async (userId, title) => {
+    console.log('Deleting ' + title + 'On Account: ' + userId)
+    try {
+      await axios.delete(`http://localhost:8000/delete-bookmark?userId=${userId}&articleUrl=${title}`)
+      getUser()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <div className="bookmark-bar">
       { user.bookmark.map(data =>
@@ -10,7 +23,7 @@ const BookmarkDisplay = ( {user} ) => {
         <a href={data.articleUrl} target="_blank" rel="noreferrer">
           <p>{data.title}</p>
         </a>
-        <button>Delete</button>
+        <button className="seconday-button" onClick={ () => deleteBookmark(userId, data.title)}>Delete</button>
         <button>Chat</button>
       </div>
         )
