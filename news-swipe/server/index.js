@@ -169,7 +169,44 @@ app.put('/add-article', async (req, res) => {
   }
 })
 
+app.delete('/delete-bookmark', async(req, res) => {
+  const client = new MongoClient(uri)
+  // const userId = req.query.userId
+  // const articleUrl = req.query.articleUrl
+  // console.log(userId, articleUrl)
+  const { userId, articleUrl } = req.query
+  console.log(articleUrl)
+  
+  try {
+    const client = new MongoClient(uri);
+    await client.connect();
+    const database = client.db('app-data');
+    const users = database.collection('users');
 
+    // Find the user with the specified userId
+    const user = await users.findOne({ user_id: userId });
+    if (!user) {
+      res.status(404).send('User not found');
+      return;
+    }
+
+    // Remove the bookmark with the specified articleUrl
+    // const updatedBookmarks = user.bookmark.filter((bookmark) => bookmark.articleUrl !== articleUrl);
+
+    // Update the user's bookmark field in the database
+    await users.updateOne(
+      { user_id: userId },
+      { $pull: { bookmark: { title: articleUrl } } },
+    );
+
+    res.status(200).send('Bookmark deleted');
+  } catch (error) {
+    console.log(error);
+    res.status(500).send('Error deleting bookmark');
+  } finally {
+    await client.close();
+  }
+})
 
 
 
