@@ -5,8 +5,11 @@ const { v4:uuid4 } = require('uuid')
 const jwt = require('jsonwebtoken')
 const cors = require('cors')
 const bcrypt = require('bcrypt')
+const axios = require('axios');
+require('dotenv').config()
 
-const uri = "mongodb+srv://medinacr:chivas1!1@cluster0.wrhygrb.mongodb.net/?retryWrites=true&w=majority"
+const uri = process.env.MONGODB_URI
+const newsApiKey = process.env.NEWS_API_KEY
 
 const app = express()
 app.use(cors())
@@ -109,6 +112,18 @@ app.get('/users', async (req, res) => {
 
 })
 
+app.get('/articles', async (req, res) => {
+  try {
+    const response = await axios.get(`https://newsapi.org/v2/top-headlines?country=us&apiKey=${newsApiKey}`, {
+      withCredentials: false
+    });
+    res.json(response.data.articles);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
 app.put('/user', async (req, res) => {
   const client = new MongoClient(uri)
   const formData = req.body.formData
@@ -208,25 +223,6 @@ app.delete('/delete-bookmark', async(req, res) => {
     await client.close();
   }
 })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
