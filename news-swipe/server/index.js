@@ -60,9 +60,10 @@ app.post('/login', async (req, res) => {
 
     const user = await users.findOne({ email })
 
-    const correctPassword = await bcrypt.compare(password, user.hashedPassword)
 
-    if (user && correctPassword) {
+    if (user && user.hashedPassword) {
+      const correctPassword = await bcrypt.compare(password, user.hashedPassword)
+
       const token = jwt.sign(user, email, {
         expiresIn: 60 * 24
       })
