@@ -36,29 +36,17 @@ const Dashboard = () => {
 
 
   useEffect(() => {
-      const getArticles = async() => {
-      const res = await axios.get("https://newsapi.org/v2/top-headlines?country=us&apiKey=f96287ec08a647b1a31a1548af42d678",{
-        withCredentials: false
-      })
-
-      setArticles(res.data.articles)
-      console.log(res)
+    const getArticles = async () => {
+      try {
+        const response = await axios.get('http://localhost:8000/articles');
+        setArticles(response.data);
+      } catch (err) {
+        console.error(err);
+      }
     };
 
     getArticles();
-  }, [])
-
-  // const updatedMatches = async (matchedUserId) => {
-  //   try {
-  //     await axios.put('http://localhost:3000/addmatch', {
-  //       userId, 
-  //       matchedUserId
-  //     })
-  //     getUser()
-  //   } catch(err) {
-  //     console.log(err)
-  //   }
-  // }
+  }, []);
 
   const swiped = async (direction, article) => {
     
