@@ -7,7 +7,7 @@ const BookmarkHeader = ( { user } ) => {
   const logout = () => {
     removeCookie('UserId', cookies.UserId)
     removeCookie('AuthToken', cookies.AuthToken)
-    window.location.pathname = '/home'
+    window.location.pathname = '/'
   }
 
   return (

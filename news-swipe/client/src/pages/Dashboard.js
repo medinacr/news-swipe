@@ -103,7 +103,11 @@ const Dashboard = () => {
                 </a>
               </div>
             </TinderCard>
-          )}
+          )} 
+           <div className='buttons'>
+                  <button onClick={() => swiped('left', articles)}>Swipe left!</button>
+                  <button onClick={() => swiped('right', articles)}>Swipe right!</button>
+            </div>
 
           <div className="swipe-info">
             {lastDirection ? <p>You swiped {lastDirection}</p> : <p/>}

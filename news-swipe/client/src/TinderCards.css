@@ -25,3 +25,13 @@
  .card- {
   object-fit: contain;
  }
+
+ 
+/* Mobile Version */
+
+@media only screen and (max-width: 480px) {
+  .card- {
+    width: 85vw;
+    height: 58vh;
+  }
+}

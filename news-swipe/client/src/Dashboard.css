@@ -45,3 +45,52 @@
   bottom: 0;
   padding: 10px;
 }
+
+.buttons {
+  margin: 20px;
+  display: flex;
+  padding-top: 658px;
+}
+
+.buttons button {
+  flex-shrink: 0;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  color: #fff;
+  font-size: 18px;
+  background-color: #9198e5;
+  transition: 200ms;
+  margin: 0 10px;
+  font-weight: bolder;
+  width: 160px;
+  box-shadow: 0px 0px 30px 0px rgba(0,0,0,0.10);
+}
+
+.buttons button:hover {
+  transform: scale(1.05);
+}
+
+/* Mobile Version */
+
+@media only screen and (max-width: 480px) {
+  .dashboard .swipe-container {
+    width: 100%;
+  }
+
+  .dashboard .card-container {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .dashboard .swipe-info {
+    display: none;
+  }
+  .buttons {
+    padding-top: 560px;
+  }
+  .buttons button {
+    width: 139px;
+
+  }
+}

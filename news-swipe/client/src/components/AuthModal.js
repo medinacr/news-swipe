@@ -20,6 +20,7 @@ const AuthModal = ( {setShowModal, isSignUp} ) => {
   }
 
   const handleSubmit = async (e) => {
+    console.log('click')
     e.preventDefault()
     try{
       if( isSignUp && (password !== confirmPassword)) {
@@ -41,6 +42,9 @@ const AuthModal = ( {setShowModal, isSignUp} ) => {
       
     } catch (error) {
       console.log(error)
+      console.log(error.response.data);
+      console.log(error.response.status);
+      console.log(error.response.headers);
     }
   }
 

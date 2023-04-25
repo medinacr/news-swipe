@@ -14,3 +14,12 @@
 .header__icon {
   padding: 20px;
 }
+
+
+/* Mobile Version */
+
+@media only screen and (max-width: 480px) {
+  .bookmark-container {
+    display: none;
+  }
+}
