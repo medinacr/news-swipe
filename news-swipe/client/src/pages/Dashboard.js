@@ -7,7 +7,7 @@ import axios from 'axios'
 
 const Dashboard = () => {
   const [user, setUser] = useState(null)
-  const [cookies, setCookie, removeCookie] = useCookies(['user'])
+  const [cookies] = useCookies(['user'])
   const [articles, setArticles] = useState([]);
   const [lastDirection, setLastDirection] = useState()
   const [bookmarkDeleted, setBookmarkDeleted] = useState(false)

@@ -3,7 +3,7 @@ import TinderCard from 'react-tinder-card'
 import '../TinderCards.css'
 
 function TinderCards() {
-  const [people, setPeople] = useState( [
+  const [ people ] = useState( [
     {
       name: "NewsWeek",
       url: "https://cdn.pixabay.com/photo/2022/12/02/18/37/middle-spotted-woodpecker-7631440_960_720.jpg"

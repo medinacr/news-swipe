@@ -1,5 +1,5 @@
+import { alertTitleClasses } from "@mui/material"
 import axios from "axios"
-import { useEffect, useState } from 'react'
 import "../ChatContainer.css"
 
 const BookmarkDisplay = ( {user, getUser, setClickedBookmark} ) => {
@@ -25,7 +25,7 @@ const BookmarkDisplay = ( {user, getUser, setClickedBookmark} ) => {
       
       {user.bookmark ? user.bookmark.map((data, _index) =>
         <div className="bookmark-card">
-          <img className="bookmark-image" src={data.urlToImage || 'https://static.projects.iq.harvard.edu/files/styles/os_files_xxlarge/public/torman_demo1/files/nature-hollywood.jpg?m=1519841272&itok=3RYGrGr8'}></img>
+          <img className="bookmark-image" alt="static-image" src={data.urlToImage || 'https://static.projects.iq.harvard.edu/files/styles/os_files_xxlarge/public/torman_demo1/files/nature-hollywood.jpg?m=1519841272&itok=3RYGrGr8'}></img>
           <a href={data.articleUrl} target="_blank" rel="noreferrer">
             <p>{data.title}</p>
           </a>

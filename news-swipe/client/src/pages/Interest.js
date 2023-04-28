@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import Nav from '../components/Nav'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import '../Signup.css'

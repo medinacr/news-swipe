@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
 const SignUp = () => {
-    const [cookies, setCookie, removeCookie] = useCookies(['user'])
+    const [cookies] = useCookies(['user'])
     const [formData, setFormData] = useState({
       user_id: cookies.UserId,
       first_name: "",

@@ -12,8 +12,14 @@ require('dotenv').config({ path: '../.env' })
 const uri = process.env.MONGODB_URI
 const newsApiKey = process.env.NEWS_API_KEY
 
+const corsOptions = {
+  origin: 'http://localhost:3000',
+  credentials: true,
+}
+
+
 const app = express()
-app.use(cors())
+app.use(cors(corsOptions))
 app.use(express.json())
 
 app.post('/signup', async (req, res) => {

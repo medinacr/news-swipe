@@ -1,13 +1,12 @@
 import Chat from "./Chat"
 import ChatInput from "./ChatInput"
 import axios from "axios"
-import {useState, userEffect, useEffect} from "react"
+import {useState, useEffect} from "react"
 
 const ChatDisplay = ({ user, clickedBookmark }) => {
   const userId = user?.user_id
   const clickedBookmarkId = clickedBookmark
   const [userMessages, setUsersMessages] = useState(null)
-  const [clickedBookmarkMessages, setclickedBookmarkMessages] = useState(null)
 
   console.log(userId)
   const getMessages = async () => {
@@ -23,7 +22,7 @@ const ChatDisplay = ({ user, clickedBookmark }) => {
 
   useEffect(() => {
     getMessages()
-  }, [])
+  }, [getMessages])
 
   const messages = []
 
