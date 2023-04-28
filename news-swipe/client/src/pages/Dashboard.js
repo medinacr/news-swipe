@@ -1,5 +1,5 @@
 import TinderCard from 'react-tinder-card'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { useCookies } from 'react-cookie'
 import '../Dashboard.css'
 import BookmarkContainer from '../components/BookmarkContainer'
