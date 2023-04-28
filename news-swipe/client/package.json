@@ -2,6 +2,7 @@
   "name": "news-swipe",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://medinacr.github.io/news-swipe",
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
@@ -20,7 +21,9 @@
     "react-router-dom": "^6.2.1",
     "react-scripts": "5.0.1",
     "react-tinder-card": "^1.6.2",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -45,5 +48,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "gh-pages": "^5.0.0"
   }
 }
