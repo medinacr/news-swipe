@@ -1,7 +1,7 @@
 import Chat from "./Chat"
 import ChatInput from "./ChatInput"
 import axios from "axios"
-import {useState, useEffect} from "react"
+import {useState, useEffect, useCallback} from "react"
 
 const ChatDisplay = ({ user, clickedBookmark }) => {
   const userId = user?.user_id
@@ -9,7 +9,7 @@ const ChatDisplay = ({ user, clickedBookmark }) => {
   const [userMessages, setUsersMessages] = useState(null)
 
   console.log(userId)
-  const getMessages = async () => {
+  const getMessages = useCallback(async () => {
     try {
       const response = await axios.get('http://localhost:8000/messages', {
         params: {userId: userId, correspondingBookmarkId: clickedBookmarkId}
@@ -18,7 +18,7 @@ const ChatDisplay = ({ user, clickedBookmark }) => {
     } catch (error) {
       console.log(error)
     }
-  }
+  }, [userId, clickedBookmarkId])
 
   useEffect(() => {
     getMessages()

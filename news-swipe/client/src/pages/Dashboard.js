@@ -10,30 +10,23 @@ const Dashboard = () => {
   const [cookies] = useCookies(['user'])
   const [articles, setArticles] = useState([]);
   const [lastDirection, setLastDirection] = useState()
-  const [bookmarkDeleted, setBookmarkDeleted] = useState(false)
-
 
   const userId = cookies.UserId
 
-  const handlebookmarkDeleted = () => {
-    setBookmarkDeleted(!bookmarkDeleted)
-  }
-
-  const getUser = async () => {
-    try{
+  const getUser = useCallback(async () => {
+    try {
       const response = await axios.get('http://localhost:8000/user', {
         params: { userId }
       })
       setUser(response.data)
-    } catch(err) {
+    } catch (err) {
       console.log(err)
     }
-  }
+  }, [userId])
 
   useEffect(() => {
     getUser()
-  }, [])
-
+  }, [getUser])
 
   useEffect(() => {
     const getArticles = async () => {
