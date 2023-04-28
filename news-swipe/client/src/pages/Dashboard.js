@@ -47,12 +47,13 @@ const Dashboard = () => {
 
     getArticles();
   }, []);
-
+    
   const swiped = async (direction, article) => {
     
     const { url: articleUrl, title, urlToImage } = article;
     console.log('swiped')
     if(direction === 'right') {
+
        try {
         await axios.put('http://localhost:8000/add-article', {
           userId, 
@@ -62,6 +63,8 @@ const Dashboard = () => {
        } catch (err) {
         console.log(err)
        }
+
+       
     }
     setLastDirection(direction)
   }

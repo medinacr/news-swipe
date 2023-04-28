@@ -84,3 +84,15 @@ h2 {
   font-size: 17px;
 }
 
+/* Mobile Version */
+
+@media only screen and (max-width: 480px) {
+.auth__modal {
+  height: 480px;
+}
+
+.auth__modal .close__icon {
+  font-size: 20px;
+}
+  
+}

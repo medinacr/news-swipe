@@ -17,3 +17,14 @@
   font-size: 90px;
   color: rgb(255,255,255);
 }
+
+/* Mobile Version */
+
+@media only screen and (max-width: 480px) {
+.primary__title {
+  font-size: 66px;
+}
+.home {
+  margin-top: 20vh;
+}
+}

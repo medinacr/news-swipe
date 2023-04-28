@@ -64,11 +64,18 @@
 
 /*----- Chat Display -----*/
 
+.chat-display,
+.matches-display {
+    padding: 20px;
+    overflow-y: auto;
+    height: 71vh;
+}
 
 .chat-input {
   display: flex;
   flex-direction: column;
   margin: 7px;
+  padding: 20px;
 }
 
 .chat-input textarea {
@@ -84,12 +91,19 @@
   line-height: 1.5; /* Set the line height to make the text more readable */
 }
 
+.chat-card {
+  background-color: gray;
+  border-radius: 5px;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
 /*------ Bookmark Display -------*/
 
 .bookmark-bar {
   display: flex;
   flex-direction: column;
-  height: 1000px;
+  height: 88vh;
   overflow: auto;
 }
 

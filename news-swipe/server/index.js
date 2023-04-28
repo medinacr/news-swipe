@@ -1,4 +1,4 @@
-const PORT = 8000 
+const PORT = process.env.PORT || 8000
 const express = require('express')
 const { MongoClient } = require('mongodb')
 const { v4:uuid4 } = require('uuid')
@@ -6,7 +6,8 @@ const jwt = require('jsonwebtoken')
 const cors = require('cors')
 const bcrypt = require('bcrypt')
 const axios = require('axios');
-require('dotenv').config()
+const { Server } = require('socket.io')
+require('dotenv').config({ path: '../.env' })
 
 const uri = process.env.MONGODB_URI
 const newsApiKey = process.env.NEWS_API_KEY
@@ -76,6 +77,7 @@ app.post('/login', async (req, res) => {
     res.status(400).send('Invalid Credentials')
   } catch (err) {
     console.log(err)
+    console.log('error')
   }
 })
 
@@ -159,12 +161,15 @@ app.put('/add-article', async (req, res) => {
     await client.connect()
     const database = client.db('app-data')
     const users = database.collection('users')
+    const chats = database.collection('chats')
 
     const query = { user_id: userId }
     const user = await users.findOne(query)
     if (user) {
       const bookmark = user.bookmark || []
       const articleUrl = article.articleUrl
+
+      // Check if the article has already been bookmarked
       if (!bookmark.some(item => item.articleUrl === articleUrl)) {
         bookmark.push(article)
         const updateDocument = {
@@ -173,6 +178,27 @@ app.put('/add-article', async (req, res) => {
           }
         }
         await users.updateOne(query, updateDocument)
+
+        // Check if there's already a chat for this article
+        const chat = await chats.findOne({ articleUrl: articleUrl })
+        if (chat) {
+          // Add the user to the existing chat
+          const chatUsers = chat.users || []
+          if (!chatUsers.includes(userId)) {
+            chatUsers.push(userId)
+            await chats.updateOne({ articleUrl: articleUrl }, { $set: { users: chatUsers } })
+          }
+        } else {
+          // Create a new chat for this article
+          const chatData = {
+            articleUrl: articleUrl,
+            users: [userId],
+            messages: []
+          }
+          // Use the "upsert" option to ensure that only one document is inserted
+          await chats.updateOne({ articleUrl: articleUrl }, { $set: chatData }, { upsert: true })
+        }
+
         res.send({ success: true })
       } else {
         res.send({ success: false, message: 'Article already bookmarked' })
@@ -184,6 +210,8 @@ app.put('/add-article', async (req, res) => {
     await client.close()
   }
 })
+
+
 
 app.delete('/delete-bookmark', async(req, res) => {
   const client = new MongoClient(uri)
@@ -224,8 +252,55 @@ app.delete('/delete-bookmark', async(req, res) => {
   }
 })
 
+app.get('/messages', async (req, res) => {
+  const client = new MongoClient(uri)
+  const { userId, correspondingBookmarkId } = req.query
+  
+  try {
+    const client = new MongoClient(uri);
+    await client.connect();
+    const database = client.db('app-data');
+    const chats = database.collection('chats')
 
+    //Find Chat with the BookmarkId
+    const response = await chats.findOne({articleUrl: correspondingBookmarkId})
+    res.send(response)
+    console.log(response)
+  } catch (error) {
+    console.log(error)
+  } finally {
+    await client.close()
+  }
+})
 
-app.listen(PORT, () => console.log('Server running on PORT ' + PORT))
+app.put('/message', async(req, res) => {
+  const client = new MongoClient(uri)
+  const message = req.body.message
+  const chatId = req.body.message.chatId
+  console.log(chatId)
 
- 
+  try {
+    await client.connect()
+    const database = client.db('app-data')
+    const messages = database.collection('chats')
+    
+    const query = { articleUrl: chatId }
+    const chat = await messages.findOneAndUpdate(
+      query,
+      { $push: { messages: message } },
+      { returnOriginal: false }
+    )
+    
+    res.send(chat)
+  } catch(error) {
+    console.log(error)
+  } finally {
+    await client.close()
+  }
+})
+
+const server = app.listen(PORT, () => {
+  console.log('Server running on PORT ' + PORT)
+});
+
+const io = new Server(server, { cors: { origin: '*' } });
