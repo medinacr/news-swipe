@@ -3,7 +3,7 @@
   box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
   rgba(0, 0, 0, 0) 0px 0px 0px 1px;
   width: 30%;
-  height: 100%;
+  height: 100vh;
   text-align: left;
   z-index: 1;
 }
@@ -68,7 +68,7 @@
 .matches-display {
     padding: 20px;
     overflow-y: auto;
-    height: 71vh;
+    height: 71%;
 }
 
 .chat-input {
@@ -130,4 +130,14 @@ a {
   width: 50px;
   border-radius: 30px;
   object-fit: cover;
+}
+
+@media only screen and (min-width: 1024px) {
+  .bookmark-bar {
+    height: 81vh;
+  }
+  .chat-display,
+  .matches-display {
+    height: 62%;
+}
 }
