@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
-import{ useCookies } from 'react-cookie'
+import{ useCookie, useCookies } from 'react-cookie'
 
 const AuthModal = ( {setShowModal, isSignUp} ) => {
 
@@ -9,13 +9,14 @@ const AuthModal = ( {setShowModal, isSignUp} ) => {
   const [password, setPassword] = useState(null)
   const [confirmPassword, setConfirmPassword] = useState(null)
   const [error, setError] = useState(null)
-  const [ setCookie ] = useCookies(['user'])
+  const [cookies, setCookie, removeCookie] = useCookies(['user'])
 
   let navigate = useNavigate()
   
   console.log(email, password, confirmPassword)
 
   const handleClick = () => {
+    
     setShowModal(false)
   }
 

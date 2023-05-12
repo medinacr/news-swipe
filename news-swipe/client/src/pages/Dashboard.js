@@ -10,6 +10,7 @@ const Dashboard = () => {
   const [cookies] = useCookies(['user'])
   const [articles, setArticles] = useState([]);
   const [lastDirection, setLastDirection] = useState()
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const userId = cookies.UserId
 
@@ -66,11 +67,22 @@ const Dashboard = () => {
     console.log(name + ' left the screen!')
   }
 
+  const toggleHamburger = () => {
+    const hamburger = document.querySelector('.hamburger');
+    hamburger.classList.toggle('active');
+    setMenuOpen(!menuOpen);
+  }
+
   return (
     <>
     { user &&
     <div className="dashboard">
-      <BookmarkContainer user={user} getUser={getUser} />
+      <div className='hamburger' onClick={toggleHamburger}>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <BookmarkContainer user={user} getUser={getUser} style={{display: menuOpen ? 'block' : 'none'}}/>
       <div className="swipe-container">
         <div className="card-container">
 

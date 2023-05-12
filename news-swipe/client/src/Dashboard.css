@@ -77,7 +77,6 @@
   .dashboard .swipe-container {
     width: 100%;
   }
-
   .dashboard .card-container {
     width: 100%;
     margin-left: auto;
@@ -88,9 +87,51 @@
   }
   .buttons {
     padding-top: 560px;
+    margin: 40px;
   }
   .buttons button {
     width: 139px;
-
+  }
+  .card-{
+    width: 366px;
+    height: 515px;
+    margin-left: 13px;
+  }
+  .dashboard .hamburger {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+  }
+  
+  .hamburger {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 20px;
+    cursor: pointer;
+    z-index: 1;
+  }
+  
+  .hamburger span {
+    display: block;
+    height: 3px;
+    width: 100%;
+    background: #000;
+    border-radius: 3px;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .hamburger span:nth-child(2) {
+    transform-origin: center;
+  }
+  .hamburger.active span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+  .hamburger.active span:nth-child(2) {
+    opacity: 0;
+  }
+  .hamburger.active span:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
   }
 }
