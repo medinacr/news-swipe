@@ -138,5 +138,11 @@
 
 
 @media only screen and (min-width: 1024px) {
-  
+  .buttons {
+    padding-top: 622px;
+  }
+  .card- {
+    width: 378px;
+    height: 571px;
+  }
 }

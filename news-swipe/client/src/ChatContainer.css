@@ -134,10 +134,10 @@ a {
 
 @media only screen and (min-width: 1024px) {
   .bookmark-bar {
-    height: 81vh;
+    height: 51%;
   }
   .chat-display,
   .matches-display {
-    height: 62%;
-}
+    height: 51%;
+  }
 }
