@@ -26,10 +26,9 @@ const ChatDisplay = ({ user, clickedBookmark }) => {
   }, [])
 
   const messages = []
-
   userMessages?.forEach(message => {
     const formattedMessage = {}
-    formattedMessage['name'] = user?.first_name
+    formattedMessage['name'] = message?.userName
     formattedMessage['message'] = message.message
     formattedMessage['timestamp'] = message.timestamp
     messages.push(formattedMessage)

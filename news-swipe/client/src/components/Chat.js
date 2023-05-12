@@ -1,5 +1,4 @@
 const Chat = (descendingOrderMessages) => {
-  console.log(descendingOrderMessages)
   return (
     <>
       <div className="chat-display">
